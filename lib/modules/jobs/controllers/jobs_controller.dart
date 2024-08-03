@@ -73,11 +73,13 @@ class JobsController extends GetxController{
       loadErrorMsg.value=e.toString();
     }
   }
+
   bookMark(Job job) async{
     try {
       if(!isClick) {
         isClick=true;
-        _dbHelper.insertOrUpdate(job);
+        await _dbHelper.insertOrUpdate(job);
+        update();
         isClick=false;
       }
     }catch(e){

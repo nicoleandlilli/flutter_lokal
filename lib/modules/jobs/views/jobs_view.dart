@@ -107,7 +107,7 @@ class JobsView extends GetView<JobsController>{
                                 },
                               child: Container(
                                 padding: const EdgeInsets.only(left: 20,top: 10,right: 20,bottom: 10),
-                                decoration: BoxDecoration(color: Colors.blue, borderRadius: BorderRadius.circular(30)),
+                                decoration: BoxDecoration(color:Colors.blue, borderRadius: BorderRadius.circular(30)),
                                 child: const Text("BookMark"),
                             ),),
                           ),

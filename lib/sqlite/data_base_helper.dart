@@ -125,12 +125,12 @@ class DatabaseHelper {
     return false;
   }
 
-  Future<void> insertOrUpdate(Job job) async {
+  Future<int> insertOrUpdate(Job job) async {
     var res=await hasItem(job);
     if(res){
-      updateItem(job);
+       return updateItem(job);
     }else{
-      insertItem(job);
+      return insertItem(job);
     }
   }
 
