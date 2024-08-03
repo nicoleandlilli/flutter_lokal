@@ -5,6 +5,7 @@ import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:lokal/modules/jobs/controllers/jobs_controller.dart';
 
+import '../../../models/job_model.dart';
 import '../../../routes/app_routes.dart';
 import '../../../services/kee_alive_wrapper.dart';
 
@@ -82,16 +83,16 @@ class JobsView extends GetView<JobsController>{
 
                           Padding(
                             padding: const EdgeInsets.only(left:10,bottom: 20),
-                            child:InkWell(onTap: controller.bookMark(item),child: Container(
-                              padding: EdgeInsets.all(10),
+                            child:InkWell(onTap: insertItem(item),child: Container(
+                              padding: const EdgeInsets.only(left: 20,top: 10,right: 20,bottom: 10),
                               decoration: BoxDecoration(color: Colors.blue, borderRadius: BorderRadius.circular(30)),
-                              child: Text("BookMark"),
+                              child: const Text("BookMark"),
                             ),),
                           ),
 
                           Padding(
                             padding: const EdgeInsets.only(left:10,bottom: 20),
-                            child: ElevatedButton(onPressed: controller.bookMark(item),child: const Text('BookMark'),),
+                            child: MaterialButton (onPressed: insertItem(item),child: const Text('BookMark'),),
                           ),
 
                           Padding(
@@ -133,8 +134,10 @@ class JobsView extends GetView<JobsController>{
     }
   }
 
-  _press() {}
 
+  insertItem(Job job){
+    controller.bookMark(job);
+  }
 
 
 }

@@ -20,7 +20,7 @@ class JobListModel {
 }
 
 class Job {
-  int? index;
+  int? indexUid;
   int? id;
   String? title;
   int? type;
@@ -78,7 +78,7 @@ class Job {
   bool? shouldShowLastContacted;
   int? feesCharged;
 
-  Job({this.index,this.id, this.title, this.type, this.primaryDetails, this.feeDetails, this.jobTags, this.jobType, this.jobCategoryId, this.qualification, this.experience, this.shiftTiming, this.jobRoleId, this.salaryMax, this.salaryMin, this.cityLocation, this.locality, this.premiumTill, this.content, this.companyName, this.advertiser, this.buttonText, this.customLink, this.amount, this.views, this.shares, this.fbShares, this.isBookmarked, this.isApplied, this.isOwner, this.updatedOn, this.whatsappNo, this.contactPreference, this.createdOn, this.isPremium, this.creatives, this.videos, this.locations, this.tags, this.contentV3, this.status, this.expireOn, this.jobHours, this.openingsCount, this.jobRole, this.otherDetails, this.jobCategory, this.numApplications, this.enableLeadCollection, this.isJobSeekerProfileMandatory, this.translatedContent, this.jobLocationSlug, this.feesText, this.questionBankId, this.screeningRetry, this.shouldShowLastContacted, this.feesCharged});
+  Job({this.indexUid,this.id, this.title, this.type, this.primaryDetails, this.feeDetails, this.jobTags, this.jobType, this.jobCategoryId, this.qualification, this.experience, this.shiftTiming, this.jobRoleId, this.salaryMax, this.salaryMin, this.cityLocation, this.locality, this.premiumTill, this.content, this.companyName, this.advertiser, this.buttonText, this.customLink, this.amount, this.views, this.shares, this.fbShares, this.isBookmarked, this.isApplied, this.isOwner, this.updatedOn, this.whatsappNo, this.contactPreference, this.createdOn, this.isPremium, this.creatives, this.videos, this.locations, this.tags, this.contentV3, this.status, this.expireOn, this.jobHours, this.openingsCount, this.jobRole, this.otherDetails, this.jobCategory, this.numApplications, this.enableLeadCollection, this.isJobSeekerProfileMandatory, this.translatedContent, this.jobLocationSlug, this.feesText, this.questionBankId, this.screeningRetry, this.shouldShowLastContacted, this.feesCharged});
 
   Job.fromJson(Map<String, dynamic> json) {
     id = json['id'];

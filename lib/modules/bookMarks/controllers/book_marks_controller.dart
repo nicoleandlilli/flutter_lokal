@@ -33,6 +33,7 @@ class BookMarksController extends GetxController{
       print("bookmark page has data.................................: ${temp.length}");
       if(temp.isNotEmpty) {
         hasData.value = true;
+        jobList.clear();
         jobList.value=temp;
         update();
       }else{

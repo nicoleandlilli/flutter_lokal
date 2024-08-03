@@ -46,6 +46,7 @@ class DatabaseHelper {
         title TEXT,
         place TEXT,
         salary TEXT,
+        indexUid INTEGER,
         tel TEXT
       )
     ''');
@@ -56,18 +57,33 @@ class DatabaseHelper {
     Database db = await database;
     var res = await db.insert(
         'jobs',
-        {'title': job.title,'place': job.primaryDetails?.place,'salary': job.primaryDetails?.salary,'tel': job.customLink},
+        {'title': job.title,'place': job.primaryDetails?.place,'salary': job.primaryDetails?.salary,'tel': job.customLink,'indexUid':job.id},
         conflictAlgorithm: ConflictAlgorithm.replace,
     );
     return res;
   }
 
+
+  Future<int> updateItem(Job job) async {
+
+    Database db = await database;
+    var res = await db.update(
+      'jobs',
+      {'title': job.title,'place': job.primaryDetails?.place,'salary': job.primaryDetails?.salary,'tel': job.customLink,"indexUid":job.id},
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+    return res;
+  }
+
+
   Future<List<Job>> getItems() async {
     Database db = await database;
     List<Map<String, dynamic>> temp= await db.query('jobs');
+    print("querry sql ..................${temp.length}...............${temp.toString()}");
     return List.generate(temp.length, (i){
       return Job(
-        index: temp[i]['id'],
+        id: temp[i]['indexUid'],
+        indexUid: temp[i]['id'],
         title: temp[i]['title'],
         customLink: temp[i]['tel'],
         primaryDetails: PrimaryDetails(place: temp[i]['place'], salary: temp[i]['salary'],),
@@ -96,6 +112,25 @@ class DatabaseHelper {
     Database db = await database;
     var res= await db.delete('jobs', where: 'id = ?', whereArgs: [index]);
     return res;
+  }
+
+  Future<bool> hasItem(Job job) async {
+    List<Job> list = await getItems();
+    for(Job job in list){
+      if(job.indexUid==job.id) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  Future<void> insertOrUpdate(Job job) async {
+    var res=await hasItem(job);
+    if(res){
+      updateItem(job);
+    }else{
+      insertItem(job);
+    }
   }
 
 }

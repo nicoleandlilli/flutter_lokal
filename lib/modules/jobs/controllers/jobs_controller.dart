@@ -72,9 +72,8 @@ class JobsController extends GetxController{
       loadErrorMsg.value=e.toString();
     }
   }
-
-  bookMark(Job job){
-    _dbHelper.insertItem(job);
+  bookMark(Job job) async{
+    _dbHelper.insertOrUpdate(job);
   }
 
   deleteDatabase(){
@@ -85,7 +84,7 @@ class JobsController extends GetxController{
   deleteDatabaseInfo() async{
     List<Job> list = await _dbHelper.getItems();
     for(Job job in list){
-      _dbHelper.deleteItem(job.index!);
+      _dbHelper.deleteItem(job.indexUid!);
     }
     print("delete database success............");
   }
