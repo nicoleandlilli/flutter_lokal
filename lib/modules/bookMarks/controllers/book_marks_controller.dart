@@ -17,11 +17,15 @@ class BookMarksController extends GetxController{
   ScrollController scrollController=ScrollController();
   final DatabaseHelper _dbHelper = DatabaseHelper();
 
+
+
   @override
   void onInit() {
     super.onInit();
-    getItems();
+    // getItems();
   }
+
+
 
   getItems() async{
     try {
@@ -43,5 +47,7 @@ class BookMarksController extends GetxController{
       loadErrorMsg.value=e.toString();
     }
   }
+
+
 
 }

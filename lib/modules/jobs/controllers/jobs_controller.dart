@@ -22,6 +22,8 @@ class JobsController extends GetxController{
   ScrollController scrollController=ScrollController();
   final DatabaseHelper _dbHelper = DatabaseHelper();
 
+
+
   @override
   void onInit() {
     super.onInit();
@@ -73,5 +75,18 @@ class JobsController extends GetxController{
 
   bookMark(Job job){
     _dbHelper.insertItem(job);
+  }
+
+  deleteDatabase(){
+    _dbHelper.delDatabase();
+    print("delete database success............");
+  }
+
+  deleteDatabaseInfo() async{
+    List<Job> list = await _dbHelper.getItems();
+    for(Job job in list){
+      _dbHelper.deleteItem(job.index!);
+    }
+    print("delete database success............");
   }
 }

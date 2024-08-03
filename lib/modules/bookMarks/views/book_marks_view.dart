@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 
 import '../../../services/kee_alive_wrapper.dart';
 import '../controllers/book_marks_controller.dart';
@@ -12,23 +13,35 @@ class BookMarksView extends GetView<BookMarksController>{
 
   @override
   Widget build(BuildContext context) {
-    // return KeepAliveWrapper(
-    //     child: Scaffold(
-    //       body: _buildBody(),
-    //     )
-    // );
     return Scaffold(
       body: _buildBody(),
     );
   }
 
   Widget _buildBody(){
-    return Stack(
-      children: [
-        _buildBookMarkList(),
-      ],
-    );
+    return VisibilityDetector(
+        key: const Key('book-marks-view'),
+        child:  Stack(
+          children: [
+            _buildBookMarkList(),
+          ],
+        ),
+        onVisibilityChanged: (VisibilityInfo visibilityInfo){
+          if(visibilityInfo.visibleFraction==0.0){
+
+          }else{
+            controller.getItems();
+          }
+        });
   }
+
+  // Widget _buildBody(){
+  //   return Stack(
+  //     children: [
+  //       _buildBookMarkList(),
+  //     ],
+  //   );
+  // }
 
   Widget _buildBookMarkList(){
     return Obx(()=>controller.jobList.isNotEmpty? ListView.builder(
@@ -98,6 +111,7 @@ class BookMarksView extends GetView<BookMarksController>{
       );
     }
   }
+
 
 
 }

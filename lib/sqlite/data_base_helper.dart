@@ -11,6 +11,7 @@ class DatabaseHelper {
 
   DatabaseHelper._internal();
 
+
   Future<Database> get database async {
     if (_database != null) return _database!;
     _database = await _initDatabase();
@@ -18,7 +19,8 @@ class DatabaseHelper {
   }
 
   Future<Database> _initDatabase() async {
-    String path = join(await getDatabasesPath(), 'lokal.db');
+    var dataBasePath = getDatabasesPath();
+    String path = join(await dataBasePath, 'lokal.db');
     return await openDatabase(
       path,
       version: 1,
@@ -27,8 +29,14 @@ class DatabaseHelper {
   }
 
   Future<void> delDatabase() async {
-    String path = join(await getDatabasesPath(), 'lokal.db');
+    var dataBasePath = getDatabasesPath();
+    String path = join(await dataBasePath, 'lokal.db');
     return await deleteDatabase(path);
+  }
+
+  Future<void> closeDatabase() async {
+    Database db = await database;
+    return await db.close();
   }
 
   Future _onCreate(Database db, int version) async {
@@ -46,32 +54,49 @@ class DatabaseHelper {
   Future<int> insertItem(Job job) async {
 
     Database db = await database;
-    return await db.insert('jobs', {'title': job.title,'place': job.primaryDetails?.place,'salary': job.primaryDetails?.salary,'tel': job.customLink});
+    var res = await db.insert(
+        'jobs',
+        {'title': job.title,'place': job.primaryDetails?.place,'salary': job.primaryDetails?.salary,'tel': job.customLink},
+        conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+    return res;
   }
 
   Future<List<Job>> getItems() async {
-    List<Job> list=[];
     Database db = await database;
     List<Map<String, dynamic>> temp= await db.query('jobs');
-    for(int i=0;i<temp.length;i++){
-      Job job = Job();
-      Map<String, dynamic> map= temp[i];
-      job.index=map['id'];
-      job.title=map['title'];
-      job.customLink=map['tel'];
+    return List.generate(temp.length, (i){
+      return Job(
+        index: temp[i]['id'],
+        title: temp[i]['title'],
+        customLink: temp[i]['tel'],
+        primaryDetails: PrimaryDetails(place: temp[i]['place'], salary: temp[i]['salary'],),
+      );
+    });
 
-      PrimaryDetails primaryDetails=PrimaryDetails();
-      primaryDetails.place=map['place'];
-      primaryDetails.salary=map['salary'];
-      job.primaryDetails=primaryDetails;
 
-      list.add(job);
-    }
-    return list;
+    // for(int i=0;i<temp.length;i++){
+    //   Job job = Job();
+    //   Map<String, dynamic> map= temp[i];
+    //   job.index=map['id'];
+    //   job.title=map['title'];
+    //   job.customLink=map['tel'];
+    //
+    //   PrimaryDetails primaryDetails=PrimaryDetails();
+    //   primaryDetails.place=map['place'];
+    //   primaryDetails.salary=map['salary'];
+    //   job.primaryDetails=primaryDetails;
+    //
+    //   list.add(job);
+    // }
+    // return list;
   }
 
   Future<int> deleteItem(int index) async {
     Database db = await database;
-    return await db.delete('jobs', where: 'id = ?', whereArgs: [index]);
+    var res= await db.delete('jobs', where: 'id = ?', whereArgs: [index]);
+    return res;
   }
+
 }
+
