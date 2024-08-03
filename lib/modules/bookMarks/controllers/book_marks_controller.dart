@@ -5,55 +5,43 @@ import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 
 import '../../../models/job_model.dart';
 import '../../../services/http_client.dart';
+import '../../../sqlite/data_base_helper.dart';
 
 class BookMarksController extends GetxController{
   int page= 6;
   RxBool hasData = true.obs;
+  RxBool loadError = false.obs;
+  RxString loadErrorMsg = "".obs;
   RxList<Job> jobList=<Job> [].obs;   //注意，需要定义成响应式数据
   HttpClient httpClient = HttpClient();
   ScrollController scrollController=ScrollController();
+  final DatabaseHelper _dbHelper = DatabaseHelper();
 
   @override
   void onInit() {
     super.onInit();
-    getJobListData();
-    initScrollController();
+    getItems();
   }
 
-  //监听滚动条事件
-  void initScrollController(){
-    scrollController.addListener((){
-      // scrollController.position.pixels     滚动条高度
-      // scrollController.position.maxScrollExtent              页面高度
-
-      if(scrollController.position.pixels>(scrollController.position.maxScrollExtent-20)){
-        getJobListData();
-      }
-    });
-  }
-
-  getJobListData() async{
-
-    try{
-      if(hasData.value) {
-        var response = await httpClient.get("/common/jobs?page=$page");
-        if (kDebugMode) {
-          print("response.............$response");
-        }
-        if (response != null) {
-          JobListModel temp = JobListModel.fromJson(response.data);
-          jobList.addAll(temp.results);
-          page++;
-          update();
-          if(temp.results!.length<=1){
-            hasData.value=false;
-          }
-        }
+  getItems() async{
+    try {
+      List<Job> temp =await _dbHelper.getItems();
+      print("bookmark page has data.................................: ${temp.length}");
+      if(temp.isNotEmpty) {
+        hasData.value = true;
+        jobList.value=temp;
+        update();
+      }else{
+        hasData.value = false;
+        update();
       }
     }catch(e){
       if (kDebugMode) {
-        print("exception is..........................$e");
+        print(e);
       }
+      loadError.value=true;
+      loadErrorMsg.value=e.toString();
     }
   }
+
 }

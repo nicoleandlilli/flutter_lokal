@@ -20,6 +20,7 @@ class JobListModel {
 }
 
 class Job {
+  int? index;
   int? id;
   String? title;
   int? type;

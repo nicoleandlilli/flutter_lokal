@@ -67,6 +67,10 @@ class JobsView extends GetView<JobsController>{
                             child: Text(item.customLink??"", style: const TextStyle(fontSize: 20,),),
                           ),
 
+                          Padding(
+                            padding: const EdgeInsets.only(left:10,bottom: 20),
+                            child: ElevatedButton(onPressed: controller.bookMark(item),child: const Text('BookMark'),),
+                          ),
                         ],
                       ),
                     ),
@@ -95,5 +99,7 @@ class JobsView extends GetView<JobsController>{
       );
     }
   }
+
+
 
 }

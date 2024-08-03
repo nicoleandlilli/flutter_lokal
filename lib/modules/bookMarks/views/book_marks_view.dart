@@ -12,22 +12,25 @@ class BookMarksView extends GetView<BookMarksController>{
 
   @override
   Widget build(BuildContext context) {
-    return KeepAliveWrapper(
-        child: Scaffold(
-          body: _buildBody(),
-        )
+    // return KeepAliveWrapper(
+    //     child: Scaffold(
+    //       body: _buildBody(),
+    //     )
+    // );
+    return Scaffold(
+      body: _buildBody(),
     );
   }
 
   Widget _buildBody(){
     return Stack(
       children: [
-        _buildProductList(),
+        _buildBookMarkList(),
       ],
     );
   }
 
-  Widget _buildProductList(){
+  Widget _buildBookMarkList(){
     return Obx(()=>controller.jobList.isNotEmpty? ListView.builder(
         controller: controller.scrollController,
         padding: const EdgeInsets.fromLTRB(26, 80, 26, 26),
@@ -74,7 +77,6 @@ class BookMarksView extends GetView<BookMarksController>{
                   ],
                 ),
               ),
-              (index==controller.jobList.length-1)?_buildProgressIndicator():const Text(""),
             ],
           );
         }):_buildProgressIndicator());
@@ -82,13 +84,17 @@ class BookMarksView extends GetView<BookMarksController>{
 
 
   Widget _buildProgressIndicator(){
-    if(controller.hasData.value){
+    if(controller.loadError.value){
+      return Center(
+        child: Text("There's something wrong: ${controller.loadErrorMsg.value} ",textAlign:TextAlign.center,),
+      );
+    }else if(controller.hasData.value){
       return const Center(
         child: CircularProgressIndicator(),
       );
     }else{
       return const Center(
-        child: Text("There's no data "),
+        child: Text("There's no data ",textAlign:TextAlign.center,),
       );
     }
   }

@@ -6,6 +6,8 @@ import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:lokal/models/job_model.dart';
 import 'package:lokal/services/http_client.dart';
+
+import '../../../sqlite/data_base_helper.dart';
 // https://json.flutterschool.cn/
 // https://javiercbk.github.io/json_to_dart/
 // https://autocode.icu/jsontodart
@@ -18,6 +20,7 @@ class JobsController extends GetxController{
   RxList<Job> jobList=<Job> [].obs;   //注意，需要定义成响应式数据
   HttpClient httpClient = HttpClient();
   ScrollController scrollController=ScrollController();
+  final DatabaseHelper _dbHelper = DatabaseHelper();
 
   @override
   void onInit() {
@@ -66,5 +69,9 @@ class JobsController extends GetxController{
       loadError.value=true;
       loadErrorMsg.value=e.toString();
     }
+  }
+
+  bookMark(Job job){
+    _dbHelper.insertItem(job);
   }
 }
