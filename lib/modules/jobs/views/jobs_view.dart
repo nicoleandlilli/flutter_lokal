@@ -53,51 +53,32 @@ class JobsView extends GetView<JobsController>{
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          // InkWell(
-                          //   onTap: (){
-                          //     Get.toNamed(Paths.jobDetails, arguments: {"job":item});
-                          //   },
-                          //   child: Column(
-                          //     crossAxisAlignment: CrossAxisAlignment.start,
-                          //     children: [
-                          //       Padding(
-                          //         padding: const EdgeInsets.only(left:10,top:20,bottom: 20,right: 10),
-                          //         child: Text(item.title??"", maxLines:2, overflow:TextOverflow.ellipsis, style: const TextStyle(fontSize: 26, fontWeight: FontWeight.bold),),
-                          //       ),
-                          //       Padding(
-                          //         padding: const EdgeInsets.only(left:10,bottom: 20),
-                          //         child: Text(primaryDetails?.place??"", style: const TextStyle(fontSize: 20,),),
-                          //       ),
-                          //       Padding(
-                          //         padding: const EdgeInsets.only(left:10,bottom: 20),
-                          //         child: Text(primaryDetails?.salary??"", style: const TextStyle(fontSize: 20,),),
-                          //       ),
-                          //       Padding(
-                          //         padding: const EdgeInsets.only(left:10,bottom: 20),
-                          //         child: Text(item.customLink??"", style: const TextStyle(fontSize: 20,),),
-                          //       ),
-                          //     ],
-                          //   ),
-                          // ),
-
-                          Padding(
-                            padding: const EdgeInsets.only(left:10,top:20,bottom: 20,right: 10),
-                            child: Text(item.title??"", maxLines:2, overflow:TextOverflow.ellipsis, style: const TextStyle(fontSize: 26, fontWeight: FontWeight.bold),),
+                          InkWell(
+                            onTap: (){
+                              Get.toNamed(Paths.jobDetails, arguments: {"job":item});
+                            },
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(left:10,top:20,bottom: 20,right: 10),
+                                  child: Text(item.title??"", maxLines:2, overflow:TextOverflow.ellipsis, style: const TextStyle(fontSize: 26, fontWeight: FontWeight.bold),),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(left:10,bottom: 20),
+                                  child: Text(primaryDetails?.place??"", style: const TextStyle(fontSize: 20,),),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(left:10,bottom: 20),
+                                  child: Text(primaryDetails?.salary??"", style: const TextStyle(fontSize: 20,),),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(left:10,bottom: 20),
+                                  child: Text(item.customLink??"", style: const TextStyle(fontSize: 20,),),
+                                ),
+                              ],
+                            ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(left:10,bottom: 20),
-                            child: Text(primaryDetails?.place??"", style: const TextStyle(fontSize: 20,),),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left:10,bottom: 20),
-                            child: Text(primaryDetails?.salary??"", style: const TextStyle(fontSize: 20,),),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left:10,bottom: 20),
-                            child: Text(item.customLink??"", style: const TextStyle(fontSize: 20,),),
-                          ),
-
-
 
                           Padding(
                             padding: const EdgeInsets.only(left:10,bottom: 20),
@@ -113,15 +94,15 @@ class JobsView extends GetView<JobsController>{
                           ),
                           
 
-                          Padding(
-                            padding: const EdgeInsets.only(left:10,bottom: 20),
-                            child: ElevatedButton(onPressed: controller.deleteDatabase,child: const Text('delete database'),),
-                          ),
-
-                          Padding(
-                            padding: const EdgeInsets.only(left:10,bottom: 20),
-                            child: ElevatedButton(onPressed: controller.deleteDatabaseInfo,child: const Text('delete database info'),),
-                          ),
+                          // Padding(
+                          //   padding: const EdgeInsets.only(left:10,bottom: 20),
+                          //   child: ElevatedButton(onPressed: controller.deleteDatabase,child: const Text('delete database'),),
+                          // ),
+                          //
+                          // Padding(
+                          //   padding: const EdgeInsets.only(left:10,bottom: 20),
+                          //   child: ElevatedButton(onPressed: controller.deleteDatabaseInfo,child: const Text('delete database info'),),
+                          // ),
                         ],
                       ),
                     ),
