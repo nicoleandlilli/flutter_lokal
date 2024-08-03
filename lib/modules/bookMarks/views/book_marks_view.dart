@@ -44,7 +44,7 @@ class BookMarksView extends GetView<BookMarksController>{
   // }
 
   Widget _buildBookMarkList(){
-    return Obx(()=>controller.jobList.isNotEmpty? ListView.builder(
+    return Obx(()=>controller.jobList.isNotEmpty&&controller.hasData.value? ListView.builder(
         controller: controller.scrollController,
         padding: const EdgeInsets.fromLTRB(26, 80, 26, 26),
         itemCount: controller.jobList.length,

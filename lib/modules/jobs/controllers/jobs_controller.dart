@@ -14,6 +14,7 @@ import '../../../sqlite/data_base_helper.dart';
 class JobsController extends GetxController{
   //https://testapi.getlokalapp.com/common/jobs?page=1  请求地址
   int page= 1;
+  bool isClick=false;
   RxBool hasData = true.obs;
   RxBool loadError = false.obs;
   RxString loadErrorMsg = "".obs;
@@ -73,12 +74,25 @@ class JobsController extends GetxController{
     }
   }
   bookMark(Job job) async{
-    _dbHelper.insertOrUpdate(job);
+    try {
+      if(isClick) {
+        isClick=true;
+        _dbHelper.insertOrUpdate(job);
+        isClick=false;
+      }
+    }catch(e){
+      isClick=false;
+      if (kDebugMode) {
+        print(e);
+      }
+    }
   }
 
   deleteDatabase(){
     _dbHelper.delDatabase();
-    print("delete database success............");
+    if (kDebugMode) {
+      print("delete database success............");
+    }
   }
 
   deleteDatabaseInfo() async{

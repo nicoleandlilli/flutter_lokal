@@ -53,47 +53,66 @@ class JobsView extends GetView<JobsController>{
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          InkWell(
-                            onTap: (){
-                              Get.toNamed(Paths.jobDetails, arguments: {"job":item});
-                            },
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(left:10,top:20,bottom: 20,right: 10),
-                                  child: Text(item.title??"", maxLines:2, overflow:TextOverflow.ellipsis, style: const TextStyle(fontSize: 26, fontWeight: FontWeight.bold),),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left:10,bottom: 20),
-                                  child: Text(primaryDetails?.place??"", style: const TextStyle(fontSize: 20,),),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left:10,bottom: 20),
-                                  child: Text(primaryDetails?.salary??"", style: const TextStyle(fontSize: 20,),),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left:10,bottom: 20),
-                                  child: Text(item.customLink??"", style: const TextStyle(fontSize: 20,),),
-                                ),
-                              ],
-                            ),
+                          // InkWell(
+                          //   onTap: (){
+                          //     Get.toNamed(Paths.jobDetails, arguments: {"job":item});
+                          //   },
+                          //   child: Column(
+                          //     crossAxisAlignment: CrossAxisAlignment.start,
+                          //     children: [
+                          //       Padding(
+                          //         padding: const EdgeInsets.only(left:10,top:20,bottom: 20,right: 10),
+                          //         child: Text(item.title??"", maxLines:2, overflow:TextOverflow.ellipsis, style: const TextStyle(fontSize: 26, fontWeight: FontWeight.bold),),
+                          //       ),
+                          //       Padding(
+                          //         padding: const EdgeInsets.only(left:10,bottom: 20),
+                          //         child: Text(primaryDetails?.place??"", style: const TextStyle(fontSize: 20,),),
+                          //       ),
+                          //       Padding(
+                          //         padding: const EdgeInsets.only(left:10,bottom: 20),
+                          //         child: Text(primaryDetails?.salary??"", style: const TextStyle(fontSize: 20,),),
+                          //       ),
+                          //       Padding(
+                          //         padding: const EdgeInsets.only(left:10,bottom: 20),
+                          //         child: Text(item.customLink??"", style: const TextStyle(fontSize: 20,),),
+                          //       ),
+                          //     ],
+                          //   ),
+                          // ),
+
+                          Padding(
+                            padding: const EdgeInsets.only(left:10,top:20,bottom: 20,right: 10),
+                            child: Text(item.title??"", maxLines:2, overflow:TextOverflow.ellipsis, style: const TextStyle(fontSize: 26, fontWeight: FontWeight.bold),),
                           ),
+                          Padding(
+                            padding: const EdgeInsets.only(left:10,bottom: 20),
+                            child: Text(primaryDetails?.place??"", style: const TextStyle(fontSize: 20,),),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left:10,bottom: 20),
+                            child: Text(primaryDetails?.salary??"", style: const TextStyle(fontSize: 20,),),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left:10,bottom: 20),
+                            child: Text(item.customLink??"", style: const TextStyle(fontSize: 20,),),
+                          ),
+
 
 
                           Padding(
                             padding: const EdgeInsets.only(left:10,bottom: 20),
-                            child:InkWell(onTap: insertItem(item),child: Container(
-                              padding: const EdgeInsets.only(left: 20,top: 10,right: 20,bottom: 10),
-                              decoration: BoxDecoration(color: Colors.blue, borderRadius: BorderRadius.circular(30)),
-                              child: const Text("BookMark"),
+                            child:InkWell(
+                              onTap: (){
+                                  controller.bookMark(item);
+                                  print("click button book mark....................${item.title}");
+                                },
+                              child: Container(
+                                padding: const EdgeInsets.only(left: 20,top: 10,right: 20,bottom: 10),
+                                decoration: BoxDecoration(color: Colors.blue, borderRadius: BorderRadius.circular(30)),
+                                child: const Text("BookMark"),
                             ),),
                           ),
-
-                          Padding(
-                            padding: const EdgeInsets.only(left:10,bottom: 20),
-                            child: MaterialButton (onPressed: insertItem(item),child: const Text('BookMark'),),
-                          ),
+                          
 
                           Padding(
                             padding: const EdgeInsets.only(left:10,bottom: 20),
@@ -135,9 +154,6 @@ class JobsView extends GetView<JobsController>{
   }
 
 
-  insertItem(Job job){
-    controller.bookMark(job);
-  }
 
 
 }
