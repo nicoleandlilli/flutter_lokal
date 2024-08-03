@@ -20,10 +20,23 @@ class JobsController extends GetxController{
   @override
   void onInit() {
     super.onInit();
-    getPListData();
+    getJobListData();
+    initScrollController();
   }
 
-  getPListData() async{
+  //监听滚动条事件
+  void initScrollController(){
+    scrollController.addListener((){
+      // scrollController.position.pixels     滚动条高度
+      // scrollController.position.maxScrollExtent              页面高度
+
+      if(scrollController.position.pixels>(scrollController.position.maxScrollExtent-20)){
+        getJobListData();
+      }
+    });
+  }
+
+  getJobListData() async{
 
     try{
       var response = await httpClient.get("/common/jobs?page=$page");
@@ -33,6 +46,7 @@ class JobsController extends GetxController{
       if(response!=null){
         JobListModel temp = JobListModel.fromJson(response.data);
         jobList.addAll(temp.results);
+        page++;
         update();
       }
     }catch(e){
