@@ -25,7 +25,7 @@ class HttpClient{
       if (kDebugMode) {
         print("请求超时$e");
       }
-      return null;
+      return e;
     }
   }
 

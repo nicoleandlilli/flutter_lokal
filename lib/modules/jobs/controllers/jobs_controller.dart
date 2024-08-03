@@ -13,6 +13,8 @@ class JobsController extends GetxController{
   //https://testapi.getlokalapp.com/common/jobs?page=1  请求地址
   int page= 1;
   RxBool hasData = true.obs;
+  RxBool loadError = false.obs;
+  RxString loadErrorMsg = "".obs;
   RxList<Job> jobList=<Job> [].obs;   //注意，需要定义成响应式数据
   HttpClient httpClient = HttpClient();
   ScrollController scrollController=ScrollController();
@@ -37,7 +39,6 @@ class JobsController extends GetxController{
   }
 
   getJobListData() async{
-
     try{
       if(hasData.value) {
         var response = await httpClient.get("/common/jobs?page=$page");
@@ -48,16 +49,22 @@ class JobsController extends GetxController{
           JobListModel temp = JobListModel.fromJson(response.data);
           jobList.addAll(temp.results);
           page++;
+          loadError.value=false;
           update();
           if(temp.results!.length<=1){
             hasData.value=false;
           }
+        }else{
+          hasData.value=false;
+          update();
         }
       }
     }catch(e){
       if (kDebugMode) {
         print("exception is..........................$e");
       }
+      loadError.value=true;
+      loadErrorMsg.value=e.toString();
     }
   }
 }

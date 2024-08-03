@@ -27,7 +27,7 @@ class JobsView extends GetView<JobsController>{
   }
 
   Widget _buildProductList(){
-    return Obx(()=>controller.jobList.isNotEmpty? ListView.builder(
+    return Obx(()=>controller.jobList.isNotEmpty&&!controller.loadError.value? ListView.builder(
         controller: controller.scrollController,
         padding: const EdgeInsets.fromLTRB(26, 80, 26, 26),
         itemCount: controller.jobList.length,
@@ -81,13 +81,17 @@ class JobsView extends GetView<JobsController>{
 
 
   Widget _buildProgressIndicator(){
-    if(controller.hasData.value){
+    if(controller.loadError.value){
+      return Center(
+        child: Text("There's something wrong: ${controller.loadErrorMsg.value} ",textAlign:TextAlign.center,),
+      );
+    }else if(controller.hasData.value){
       return const Center(
         child: CircularProgressIndicator(),
       );
     }else{
       return const Center(
-        child: Text("There's no data "),
+        child: Text("There's no data ",textAlign:TextAlign.center,),
       );
     }
   }
