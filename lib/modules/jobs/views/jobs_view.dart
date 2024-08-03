@@ -51,8 +51,8 @@ class JobsView extends GetView<JobsController>{
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(
-                            padding: const EdgeInsets.only(left:10,bottom: 20),
-                            child: Text(item.title??"", maxLines:2, overflow:TextOverflow.ellipsis, style: const TextStyle(fontSize: 26, fontWeight: FontWeight.bold),),
+                            padding: const EdgeInsets.only(left:10,top:20,bottom: 20),
+                            child: Text(item.jobRole??"", maxLines:2, overflow:TextOverflow.ellipsis, style: const TextStyle(fontSize: 26, fontWeight: FontWeight.bold),),
                           ),
                           Padding(
                             padding: const EdgeInsets.only(left:10,bottom: 20),
