@@ -11,5 +11,6 @@ abstract class Paths {
   static const tabs = '/tabs';
   static const jobs = '/jobs';
   static const bookMarks = '/book-marks';
+  static const jobDetails = '/job-details';
 }
 
