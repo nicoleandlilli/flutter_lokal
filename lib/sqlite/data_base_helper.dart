@@ -70,6 +70,8 @@ class DatabaseHelper {
     var res = await db.update(
       'jobs',
       {'title': job.title,'place': job.primaryDetails?.place,'salary': job.primaryDetails?.salary,'tel': job.customLink,"indexUid":job.id},
+      where: 'indexUid = ?',
+      whereArgs:[ job.id],
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
     return res;
@@ -79,7 +81,6 @@ class DatabaseHelper {
   Future<List<Job>> getItems() async {
     Database db = await database;
     List<Map<String, dynamic>> temp= await db.query('jobs');
-    print("querry sql ..................${temp.length}...............${temp.toString()}");
     return List.generate(temp.length, (i){
       return Job(
         id: temp[i]['indexUid'],
@@ -114,10 +115,10 @@ class DatabaseHelper {
     return res;
   }
 
-  Future<bool> hasItem(Job job) async {
+  Future<bool> hasItem(Job item) async {
     List<Job> list = await getItems();
     for(Job job in list){
-      if(job.indexUid==job.id) {
+      if(job.id==item.id) {
         return true;
       }
     }

@@ -30,7 +30,6 @@ class BookMarksController extends GetxController{
   getItems() async{
     try {
       List<Job> temp =await _dbHelper.getItems();
-      print("bookmark page has data.................................: ${temp.length}");
       if(temp.isNotEmpty) {
         hasData.value = true;
         jobList.clear();

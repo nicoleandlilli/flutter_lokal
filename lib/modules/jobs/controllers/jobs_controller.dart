@@ -75,7 +75,7 @@ class JobsController extends GetxController{
   }
   bookMark(Job job) async{
     try {
-      if(isClick) {
+      if(!isClick) {
         isClick=true;
         _dbHelper.insertOrUpdate(job);
         isClick=false;

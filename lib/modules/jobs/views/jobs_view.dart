@@ -104,7 +104,6 @@ class JobsView extends GetView<JobsController>{
                             child:InkWell(
                               onTap: (){
                                   controller.bookMark(item);
-                                  print("click button book mark....................${item.title}");
                                 },
                               child: Container(
                                 padding: const EdgeInsets.only(left: 20,top: 10,right: 20,bottom: 10),
