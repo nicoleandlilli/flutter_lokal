@@ -34,6 +34,7 @@ class JobsView extends GetView<JobsController>{
         itemCount: controller.jobList.length,
         itemBuilder: (context, index){
           var item = controller.jobList[index];
+          var primaryDetails = item.primaryDetails;
           return Column(
             children: [
               Container(
@@ -43,28 +44,28 @@ class JobsView extends GetView<JobsController>{
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: const Row(
+                child: Row(
                   children: [
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(
-                            padding: EdgeInsets.only(left:10,bottom: 20),
-                            child: Text("item.title", style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),),
+                            padding: const EdgeInsets.only(left:10,bottom: 20),
+                            child: Text(item.title??"", maxLines:2, overflow:TextOverflow.ellipsis, style: const TextStyle(fontSize: 26, fontWeight: FontWeight.bold),),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(left:10,bottom: 20),
-                            child: Text("item.location", style: TextStyle(fontSize: 20,),),
+                            padding: const EdgeInsets.only(left:10,bottom: 20),
+                            child: Text(primaryDetails?.place??"", style: const TextStyle(fontSize: 20,),),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(left:10,bottom: 20),
-                            child: Text("item.salary", style: TextStyle(fontSize: 20,),),
+                            padding: const EdgeInsets.only(left:10,bottom: 20),
+                            child: Text(primaryDetails?.salary??"", style: const TextStyle(fontSize: 20,),),
                           ),
 
                           Padding(
-                            padding: EdgeInsets.only(left:10,bottom: 20),
-                            child: Text("phone", style: TextStyle(fontSize: 20,),),
+                            padding: const EdgeInsets.only(left:10,bottom: 20),
+                            child: Text(item.customLink??"", style: const TextStyle(fontSize: 20,),),
                           ),
 
                         ],

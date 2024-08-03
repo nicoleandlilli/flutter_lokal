@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -41,7 +40,7 @@ class TabsView extends GetView<TabsController>{
           BottomNavigationBarItem(
               // icon: Icon(Icons.category),
               icon: Icon(Icons.bookmark),
-              label: "BookMarks"
+              label: "Bookmarks"
           ),
 
         ],
