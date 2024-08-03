@@ -22,7 +22,6 @@ class JobsView extends GetView<JobsController>{
     return Stack(
       children: [
         _buildProductList(),
-        // _buildSubHeader(),
       ],
     );
   }
@@ -88,7 +87,7 @@ class JobsView extends GetView<JobsController>{
       );
     }else{
       return const Center(
-        child: Text("没有数据了喔，我是有底线的"),
+        child: Text("There's no data "),
       );
     }
   }

@@ -39,15 +39,20 @@ class JobsController extends GetxController{
   getJobListData() async{
 
     try{
-      var response = await httpClient.get("/common/jobs?page=$page");
-      if (kDebugMode) {
-        print("response.............$response");
-      }
-      if(response!=null){
-        JobListModel temp = JobListModel.fromJson(response.data);
-        jobList.addAll(temp.results);
-        page++;
-        update();
+      if(hasData.value) {
+        var response = await httpClient.get("/common/jobs?page=$page");
+        if (kDebugMode) {
+          print("response.............$response");
+        }
+        if (response != null) {
+          JobListModel temp = JobListModel.fromJson(response.data);
+          jobList.addAll(temp.results);
+          page++;
+          update();
+          if(temp.results!.length<=1){
+            hasData.value=false;
+          }
+        }
       }
     }catch(e){
       if (kDebugMode) {
