@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 
 class HttpClient{
 
-  static String domain="https://miapp.itying.com";
+  static String domain="https://testapi.getlokalapp.com/";
 
   static Dio dio = Dio();
 

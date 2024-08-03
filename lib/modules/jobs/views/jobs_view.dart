@@ -28,12 +28,12 @@ class JobsView extends GetView<JobsController>{
   }
 
   Widget _buildProductList(){
-    return Obx(()=>controller.pList.isNotEmpty? ListView.builder(
+    return Obx(()=>controller.jobList.isNotEmpty? ListView.builder(
         controller: controller.scrollController,
         padding: const EdgeInsets.fromLTRB(26, 80, 26, 26),
-        itemCount: controller.pList.length,
+        itemCount: controller.jobList.length,
         itemBuilder: (context, index){
-          String item = controller.pList[index];
+          var item = controller.jobList[index];
           return Column(
             children: [
               Container(
@@ -73,7 +73,7 @@ class JobsView extends GetView<JobsController>{
                   ],
                 ),
               ),
-              (index==controller.pList.length-1)?_buildProgressIndicator():const Text(""),
+              (index==controller.jobList.length-1)?_buildProgressIndicator():const Text(""),
             ],
           );
         }):_buildProgressIndicator());
